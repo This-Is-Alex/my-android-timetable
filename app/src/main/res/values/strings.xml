@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">My UC Timetable</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Preference Titles -->
+    <string name="general_header">General Settings</string>
+    <string name="notification_header">Notifications</string>
+
+    <!-- General Preferences -->
+    <string name="sunday_first_day">Sunday is first day of week</string>
+    <string name="display_24_hour">Display 24-hour time</string>
+
+    <!-- Notification Preferences -->
+    <string name="lecture_notification_switch">Receive notifications for lectures</string>
+    <string name="lab_notification_switch">Receive notifications for labs/tutorials</string>
+    <string name="notification_mins_before_lecture">Minutes before lecture to receive notification</string>
+    <string name="notification_first_class_mins_before_lecture">Minutes before first class of day to receive lecture notification</string>
+    <string name="notification_mins_before_lab">Minutes before lab/tutorial to receive notification</string>
+    <string name="notification_first_class_mins_before_lab">Minutes before first class of day to receive lab/tutorial notification</string>
 </resources>
