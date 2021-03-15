@@ -1,11 +1,17 @@
 package me.ahobson.myandroidtimetable
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.R.layout
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.commit
+import androidx.recyclerview.widget.RecyclerView
+import me.ahobson.myandroidtimetable.calendar.CalendarDay
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,14 +26,34 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+        return when (item.itemId) {
             R.id.settings -> {
-                val intent = Intent(this, SettingsActivity::class.java)
-                startActivity(intent)
-                return true;
+                changeFragment(1)
+                true
             }
-            else -> return super.onOptionsItemSelected(item)
+
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
+    fun changeFragment(id: Int) {
+        var fragment: Fragment = MainFragment()
+        var name: String = "main";
+        if (id == 1) {
+            fragment = SettingsFragment()
+            name = "settings"
+        } else if (id == 2) {
+
+        }
+        supportFragmentManager.commit {
+            replace(R.id.fragment_container, fragment)
+            setCustomAnimations(
+                R.anim.frag_change,
+                R.anim.frag_change,
+                R.anim.frag_change,
+                R.anim.frag_change
+            )
+            addToBackStack(name)
+        }
+    }
 }
