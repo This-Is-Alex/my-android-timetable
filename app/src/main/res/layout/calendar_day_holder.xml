@@ -13,8 +13,19 @@
             android:id="@+id/this_day_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Something went wrong"
+            android:background="@color/red_900"
+            android:elevation="6dp"
             android:gravity="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+            android:outlineProvider="paddedBounds"
+            android:text="Something went wrong"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="@color/white" />
+
+        <LinearLayout
+            android:id="@+id/calendar_day"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,8 @@
     <string name="general_header">General Settings</string>
     <string name="notification_header">Notifications</string>
 
+    <string name="calendar_top_left">Time of\nday</string>
+
     <!-- General Preferences -->
     <string name="sunday_first_day">Sunday is first day of week</string>
     <string name="display_24_hour">Display 24-hour time</string>

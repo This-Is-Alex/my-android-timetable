@@ -1,9 +1,12 @@
 package me.ahobson.myandroidtimetable
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,11 +15,6 @@ import java.util.*
 
 
 class CalendarFragment : Fragment() {
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onStart() {
         super.onStart()
@@ -47,6 +45,43 @@ class CalendarFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_calendar, container, false)
+        val view = inflater.inflate(R.layout.fragment_calendar, container, false)
+
+        val timeOfDayLayout: LinearLayout? = view.findViewById(R.id.calendar_time_of_day)
+
+        //dummy padding
+        val paddingStart = createLabel()
+        paddingStart.height = 50
+        timeOfDayLayout?.addView(paddingStart)
+
+        for (i in 1..23) {
+            val timeOfDayLabel = createLabel()
+            timeOfDayLabel.text = formatHour(i)
+            timeOfDayLayout?.addView(timeOfDayLabel)
+        }
+
+        //dummy padding
+        val paddingEnd = createLabel()
+        paddingEnd.height = 50
+        timeOfDayLayout?.addView(paddingEnd)
+
+        return view
+    }
+
+    private fun createLabel(): TextView {
+        val timeOfDayLabel = TextView(context)
+        timeOfDayLabel.layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.FILL_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT)
+        timeOfDayLabel.gravity = Gravity.CENTER
+        timeOfDayLabel.height = 100
+        timeOfDayLabel.setTextColor(resources.getColor(R.color.white, null))
+        timeOfDayLabel.setBackgroundColor(resources.getColor(R.color.red_900, null))
+        return timeOfDayLabel
+    }
+
+    private fun formatHour(hour: Int): String {
+        //TODO check if display 24-hour times
+        return if (hour < 10) "0$hour:00" else "$hour:00"
     }
 }
