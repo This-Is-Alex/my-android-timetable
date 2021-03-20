@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -17,15 +19,13 @@
             android:elevation="6dp"
             android:gravity="center"
             android:outlineProvider="paddedBounds"
-            android:text="Something went wrong"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="@color/white" />
 
-        <LinearLayout
-            android:id="@+id/calendar_day"
+        <me.ahobson.myandroidtimetable.CalendarDayView
+            android:id="@+id/calendar_day_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

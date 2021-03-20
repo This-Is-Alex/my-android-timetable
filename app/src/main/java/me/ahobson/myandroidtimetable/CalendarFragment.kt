@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import me.ahobson.myandroidtimetable.calendar.CalendarDay
+import me.ahobson.myandroidtimetable.calendar.CalendarItem
+import me.ahobson.myandroidtimetable.calendar.ClassType
 import java.util.*
 
 
@@ -20,9 +22,9 @@ class CalendarFragment : Fragment() {
         super.onStart()
 
         val testCalendar: Array<CalendarDay> = arrayOf(
-                CalendarDay(Date(2021, 3, 24), arrayOf()),
-                CalendarDay(Date(2021, 3, 23), arrayOf()),
-                CalendarDay(Date(2021, 3, 22), arrayOf())
+            CalendarDay(2021, 3, 19, arrayOf(
+                CalendarItem(10, 30, 30, "SENG440", "Engineering Core E8", ClassType.LECTURE)
+            ))
         )
         val calAdapter = CalendarAdapter(testCalendar)
         val recyclerView: RecyclerView? = activity?.findViewById(R.id.calendar_recycler_view)
@@ -51,7 +53,7 @@ class CalendarFragment : Fragment() {
 
         //dummy padding
         val paddingStart = createLabel()
-        paddingStart.height = 50
+        paddingStart.height = 60
         timeOfDayLayout?.addView(paddingStart)
 
         for (i in 1..23) {
@@ -62,7 +64,7 @@ class CalendarFragment : Fragment() {
 
         //dummy padding
         val paddingEnd = createLabel()
-        paddingEnd.height = 50
+        paddingEnd.height = 60
         timeOfDayLayout?.addView(paddingEnd)
 
         return view
@@ -74,7 +76,7 @@ class CalendarFragment : Fragment() {
                 ViewGroup.LayoutParams.FILL_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT)
         timeOfDayLabel.gravity = Gravity.CENTER
-        timeOfDayLabel.height = 100
+        timeOfDayLabel.height = 120
         timeOfDayLabel.setTextColor(resources.getColor(R.color.white, null))
         timeOfDayLabel.setBackgroundColor(resources.getColor(R.color.red_900, null))
         return timeOfDayLabel

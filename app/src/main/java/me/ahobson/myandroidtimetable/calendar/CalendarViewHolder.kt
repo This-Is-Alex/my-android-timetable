@@ -4,47 +4,42 @@ import android.graphics.Typeface
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
+import android.widget.Space
+import android.widget.TableLayout
+import android.widget.TableRow
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import me.ahobson.myandroidtimetable.CalendarDayView
 import me.ahobson.myandroidtimetable.R
 import java.util.*
 
 class CalendarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val dayTitle: TextView = itemView.findViewById(R.id.this_day_title)
-    private val calendarDayWidget: LinearLayout = itemView.findViewById(R.id.calendar_day)
+    private val calendarDayWidget: CalendarDayView = itemView.findViewById(R.id.calendar_day_view)
 
-    fun bind(month: Int, day: Int, dayOfWeek: Int, calendarDay: CalendarDay) {
+    fun bind(dayOfYear: Int, calendarDay: CalendarDay) {
 
-        dayTitle.text = formatDateString(month, day, dayOfWeek)
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.DAY_OF_YEAR, dayOfYear)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
+
+        dayTitle.text = formatDateString(month+1, day, dayOfWeek)
 
         //if it's today
-        if (position + 1 == Calendar.getInstance().get(Calendar.DAY_OF_YEAR)) {
+        if (dayOfYear == Calendar.getInstance().get(Calendar.DAY_OF_YEAR)) {
             dayTitle.setTypeface(null, Typeface.BOLD)
+            dayTitle.setBackgroundColor(itemView.resources.getColor(R.color.amber_700, null))
         } else {
             //reset it because RecyclerView do be like that
             dayTitle.setTypeface(null, Typeface.NORMAL)
+            dayTitle.setBackgroundColor(itemView.resources.getColor(R.color.red_900, null))
         }
 
-        calendarDayWidget.removeAllViews()
-        for (i in 0..23) {
-            val timeOfDayLabel = createGridLabel()
-            timeOfDayLabel.text = ""
-
-            calendarDayWidget.addView(timeOfDayLabel)
-        }
-    }
-
-    private fun createGridLabel(): TextView {
-        val timeOfDayLabel = TextView(itemView.context)
-        timeOfDayLabel.layoutParams = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.FILL_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT)
-        timeOfDayLabel.gravity = Gravity.RIGHT.or(Gravity.TOP)
-        timeOfDayLabel.height = 100
-        timeOfDayLabel.setTextColor(itemView.resources.getColor(R.color.white, null))
-        timeOfDayLabel.setBackgroundResource(R.drawable.medium_border_bottom_right)
-        return timeOfDayLabel
+        calendarDayWidget.calendarDay = calendarDay
     }
 
     private fun formatDateString(month: Int, day: Int, dayOfWeek: Int): String {

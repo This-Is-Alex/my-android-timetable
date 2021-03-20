@@ -16,7 +16,7 @@ class CalendarAdapter(private val calendarDays: Array<CalendarDay>)
     : RecyclerView.Adapter<CalendarViewHolder>() {
 
     private val currentYear = Calendar.getInstance().get(Calendar.YEAR)
-    private val blankDay = CalendarDay(Date(2000, 1, 1), arrayOf())
+    private val blankDay = CalendarDay(2000, 1, 1, arrayOf())
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -36,7 +36,7 @@ class CalendarAdapter(private val calendarDays: Array<CalendarDay>)
     override fun onBindViewHolder(holder: CalendarViewHolder, position: Int) {
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.DAY_OF_YEAR, position + 1)
-        val month = calendar.get(Calendar.MONTH) + 1
+        val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
         val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
 
@@ -48,7 +48,7 @@ class CalendarAdapter(private val calendarDays: Array<CalendarDay>)
             }
         }
 
-        holder.bind(month, day, dayOfWeek, calendarDay)
+        holder.bind(position + 1, calendarDay)
     }
 
     override fun getItemCount() = 365
