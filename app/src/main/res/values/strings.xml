@@ -19,6 +19,14 @@
     <string name="notification_first_class_mins_before_lecture">Minutes before first class of day to receive lecture notification</string>
     <string name="notification_mins_before_lab">Minutes before lab/tutorial to receive notification</string>
     <string name="notification_first_class_mins_before_lab">Minutes before first class of day to receive lab/tutorial notification</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="full_class_frag_class_type">Class type</string>
+    <string name="full_class_frag_class_description">Description</string>
+    <string name="full_class_frag_time_start">Start Time</string>
+    <string name="full_class_frag_time_end">End Time</string>
+    <string name="full_class_frag_duration">Duration</string>
+    <string name="full_class_frag_room">Room</string>
+    <string name="full_class_frag_rawroom">Raw Room (Debug)</string>
 </resources>

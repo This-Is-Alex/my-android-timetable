@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.ScrollView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,30 +19,6 @@ import java.util.*
 
 
 class CalendarFragment : Fragment() {
-
-    override fun onStart() {
-        super.onStart()
-
-        val testCalendar: Array<CalendarDay> = arrayOf(
-            CalendarDay(2021, 3, 19, arrayOf(
-                CalendarItem(10, 30, 30, "SENG440", "Engineering Core E8", ClassType.LECTURE)
-            ))
-        )
-        val calAdapter = CalendarAdapter(testCalendar)
-        val recyclerView: RecyclerView? = activity?.findViewById(R.id.calendar_recycler_view)
-
-        //adapted from https://stackoverflow.com/questions/51201482/android-percent-screen-width-in-recyclerview-item/51224889
-        val layoutManager = object : LinearLayoutManager(context) {
-            override fun checkLayoutParams(lp: RecyclerView.LayoutParams): Boolean {
-                lp.width = width / 7
-                return true
-            }
-        }
-
-        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
-        recyclerView?.layoutManager = layoutManager
-        recyclerView?.adapter = calAdapter
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,6 +44,37 @@ class CalendarFragment : Fragment() {
         val paddingEnd = createLabel()
         paddingEnd.height = 60
         timeOfDayLayout?.addView(paddingEnd)
+
+        val testCalendar: Array<CalendarDay> = arrayOf(
+            CalendarDay(2021, 3, 19, arrayOf(
+                CalendarItem(10, 30, 30, "SENG440", "Engineering Core E8", ClassType.LECTURE),
+                CalendarItem(10, 0, 120, "SENG401", "JE 101", ClassType.LECTURE),
+                CalendarItem(10, 30, 60, "567", "Engineering Core E8", ClassType.LECTURE),
+                CalendarItem(9, 30, 30, "234", "Engineering Core E8", ClassType.LECTURE),
+                CalendarItem(9, 30, 30, "123", "Engineering Core E8", ClassType.LECTURE),
+                CalendarItem(8, 30, 60, "345", "Engineering Core E8", ClassType.LECTURE)
+            ))
+        )
+        val calAdapter = CalendarAdapter(testCalendar)
+        val recyclerView: RecyclerView = view.findViewById(R.id.calendar_recycler_view)
+        val scrollView: ScrollView = view.findViewById(R.id.calendar_scroll_view)
+
+        //adapted from https://stackoverflow.com/questions/51201482/android-percent-screen-width-in-recyclerview-item/51224889
+        val layoutManager = object : LinearLayoutManager(context) {
+            override fun checkLayoutParams(lp: RecyclerView.LayoutParams): Boolean {
+                lp.width = width / 7
+                return true
+            }
+        }
+
+        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+        recyclerView?.layoutManager = layoutManager
+        recyclerView?.adapter = calAdapter
+
+        val calendar = Calendar.getInstance()
+        //TODO if Monday is marked as first day of week
+        val dayOfYear = calendar.get(Calendar.DAY_OF_YEAR) - calendar.get(Calendar.DAY_OF_WEEK)
+        recyclerView?.scrollToPosition(dayOfYear)
 
         return view
     }

@@ -24,15 +24,6 @@ class CalendarAdapter(private val calendarDays: Array<CalendarDay>)
         return CalendarViewHolder(view)
     }
 
-    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
-        super.onAttachedToRecyclerView(recyclerView)
-        val calendar = Calendar.getInstance()
-
-        //TODO if Monday is marked as first day of week
-        val dayOfYear = calendar.get(Calendar.DAY_OF_YEAR) - calendar.get(Calendar.DAY_OF_WEEK)
-        recyclerView.scrollToPosition(dayOfYear)
-    }
-
     override fun onBindViewHolder(holder: CalendarViewHolder, position: Int) {
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.DAY_OF_YEAR, position + 1)
