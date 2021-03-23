@@ -1,20 +1,15 @@
 package me.ahobson.myandroidtimetable
 
-import android.R.layout
 import android.os.Bundle
-import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.widget.Toast
+import android.view.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
-import androidx.recyclerview.widget.RecyclerView
+import me.ahobson.myandroidtimetable.animation.exitCircularReveal
 import me.ahobson.myandroidtimetable.calendar.CalendarClickListener
-import me.ahobson.myandroidtimetable.calendar.CalendarDay
 import me.ahobson.myandroidtimetable.calendar.CalendarItem
+import me.ahobson.myandroidtimetable.fragments.ClassSummaryFragment
+import me.ahobson.myandroidtimetable.fragments.SettingsFragment
 
 
 class MainActivity : AppCompatActivity(), CalendarClickListener {
@@ -49,19 +44,38 @@ class MainActivity : AppCompatActivity(), CalendarClickListener {
         }
     }
 
-    fun showCalendarItem(calItem: CalendarItem, animationX: Float, animationY: Float) {
+    private fun showCalendarItem(calItem: CalendarItem, animationX: Float, animationY: Float) {
         val bundle: Bundle = Bundle()
         bundle.putSerializable("item", calItem)
-        var fragment = ClassSummaryFragment()
+        bundle.putInt("posX", animationX.toInt())
+        bundle.putInt("posY", animationY.toInt())
+        var fragment =
+            ClassSummaryFragment()
         fragment.arguments = bundle
+
         supportFragmentManager.commit {
-            //setCustomAnimations(R.anim.frag_change, R.anim.frag_change)
-            replace(R.id.fragment_container, fragment, "classSummary")
+            add(R.id.fragment_container, fragment, "classSummary")
             addToBackStack("classSummary")
         }
     }
 
     override fun clickedCalendarItem(item: CalendarItem, rawX: Float, rawY: Float) {
         showCalendarItem(item, rawX, rawY)
+    }
+
+    override fun onBackPressed() {
+        with(supportFragmentManager.findFragmentById(R.id.fragment_container)) {
+            if (this is ClassSummaryFragment) {
+                if (this.posX == null || this.posY == null) {
+                    super.onBackPressed()
+                } else {
+                    this.view?.exitCircularReveal(this.posX!!, this.posY!!) {
+                        super.onBackPressed()
+                    } ?: super.onBackPressed()
+                }
+            } else {
+                super.onBackPressed()
+            }
+        }
     }
 }

@@ -1,4 +1,4 @@
-package me.ahobson.myandroidtimetable
+package me.ahobson.myandroidtimetable.fragments
 
 import android.os.Bundle
 import android.view.Gravity
@@ -8,10 +8,11 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import me.ahobson.myandroidtimetable.CalendarAdapter
+import me.ahobson.myandroidtimetable.R
 import me.ahobson.myandroidtimetable.calendar.CalendarDay
 import me.ahobson.myandroidtimetable.calendar.CalendarItem
 import me.ahobson.myandroidtimetable.calendar.ClassType
@@ -46,7 +47,7 @@ class CalendarFragment : Fragment() {
         timeOfDayLayout?.addView(paddingEnd)
 
         val testCalendar: Array<CalendarDay> = arrayOf(
-            CalendarDay(2021, 3, 19, arrayOf(
+            CalendarDay(2021, 3, 27, arrayOf(
                 CalendarItem(10, 30, 30, "SENG440", "Engineering Core E8", ClassType.LECTURE),
                 CalendarItem(10, 0, 120, "SENG401", "JE 101", ClassType.LECTURE),
                 CalendarItem(10, 30, 60, "567", "Engineering Core E8", ClassType.LECTURE),
@@ -55,7 +56,8 @@ class CalendarFragment : Fragment() {
                 CalendarItem(8, 30, 60, "345", "Engineering Core E8", ClassType.LECTURE)
             ))
         )
-        val calAdapter = CalendarAdapter(testCalendar)
+        val calAdapter =
+            CalendarAdapter(testCalendar)
         val recyclerView: RecyclerView = view.findViewById(R.id.calendar_recycler_view)
         val scrollView: ScrollView = view.findViewById(R.id.calendar_scroll_view)
 
