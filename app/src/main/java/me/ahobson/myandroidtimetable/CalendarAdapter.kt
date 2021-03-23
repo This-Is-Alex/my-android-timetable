@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import me.ahobson.myandroidtimetable.calendar.CalendarDay
+import me.ahobson.myandroidtimetable.calendar.CalendarItem
 import me.ahobson.myandroidtimetable.calendar.CalendarViewHolder
 import java.time.Year
 import java.util.*
@@ -16,7 +17,7 @@ class CalendarAdapter(private val calendarDays: Array<CalendarDay>)
     : RecyclerView.Adapter<CalendarViewHolder>() {
 
     private val currentYear = Calendar.getInstance().get(Calendar.YEAR)
-    private val blankDay = CalendarDay(2000, 1, 1, arrayOf())
+    private val blankDay = CalendarDay(2000, 1, 1, mutableListOf<CalendarItem>())
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarViewHolder {
         val view = LayoutInflater.from(parent.context)

@@ -47,7 +47,7 @@ class CalendarFragment : Fragment() {
         timeOfDayLayout?.addView(paddingEnd)
 
         val testCalendar: Array<CalendarDay> = arrayOf(
-            CalendarDay(2021, 3, 27, arrayOf(
+            CalendarDay(2021, 3, 27, mutableListOf<CalendarItem>(
                 CalendarItem(10, 30, 30, "SENG440", "Engineering Core E8", ClassType.LECTURE),
                 CalendarItem(10, 0, 120, "SENG401", "JE 101", ClassType.LECTURE),
                 CalendarItem(10, 30, 60, "567", "Engineering Core E8", ClassType.LECTURE),

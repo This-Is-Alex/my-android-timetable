@@ -33,4 +33,17 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
     <string name="touch_anywhere_to_close">Tap anywhere to return</string>
+
+    <string name="url_field">Calendar URL</string>
+    <string name="progress_downloading_calendar">Downloading Calendar</string>
+    <string name="progress_parsing_calendar">Generating Calendar</string>
+    <string name="url_confirm">Start</string>
+    <string name="instructions_for_getting_calendar_url">Instructions for getting calendar URL</string>
+    <string name="login_instructions">Instructions for setting up app:\n
+        1. Sign into MyTimetable\n
+        2. Scroll down to the heading "Subscribe to your timetable"\n
+        3. Copy the URL into the text box above and press start</string>
+
+    <string name="mytimetable_hyperlink_text">Open MyTimetable</string>
+    <string name="mytimetable_url">https://mytimetable.canterbury.ac.nz</string>
 </resources>

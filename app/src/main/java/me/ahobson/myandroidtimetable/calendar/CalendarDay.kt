@@ -4,7 +4,7 @@ import android.util.Log
 import java.util.*
 
 class CalendarDay (private val year: Int, private val month: Int, private val day: Int,
-                   val classes: Array<CalendarItem>
+                   val classes: MutableList<CalendarItem>
                    )
 {
     fun getDateString(): String {

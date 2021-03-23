@@ -31,13 +31,13 @@ class CalendarDayView @JvmOverloads constructor(
     private val hitBoxes: MutableMap<CalendarItem, RectF> = HashMap<CalendarItem, RectF>()
 
     init {
-        this.setOnTouchListener { v, event ->
-            if (event.action == MotionEvent.ACTION_DOWN) {
-                for (calevent in hitBoxes.keys) {
-                    val hitBox: RectF = hitBoxes.getOrElse(calevent, {RectF()})
+        this.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                for (calEvent in hitBoxes.keys) {
+                    val hitBox: RectF = hitBoxes.getOrElse(calEvent, {RectF()})
                     if (hitBox.contains(event.x, event.y)) {
                         if (context is CalendarClickListener) {
-                            context.clickedCalendarItem(calevent, event.rawX, event.rawY)
+                            context.clickedCalendarItem(calEvent, event.rawX, event.rawY)
                         }
                     }
                 }

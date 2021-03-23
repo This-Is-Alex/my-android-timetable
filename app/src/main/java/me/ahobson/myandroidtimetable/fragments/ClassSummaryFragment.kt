@@ -65,7 +65,7 @@ class ClassSummaryFragment : Fragment() {
         return rootView
     }
 
-    private fun closeFragment() {
+    fun closeFragment() {
         val unreveal: Animator =
             this.prepareUnrevealAnimator(posX, posY)
 
@@ -74,7 +74,6 @@ class ClassSummaryFragment : Fragment() {
             override fun onAnimationEnd(animation: Animator) {
                 invokeClosedCallback()
             }
-
             override fun onAnimationCancel(animation: Animator) {}
             override fun onAnimationRepeat(animation: Animator) {}
         })
