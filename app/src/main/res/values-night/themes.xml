@@ -14,7 +14,13 @@
         <!-- Customize your theme here. -->
         <item name="actionBarStyle">@style/MyActionBar</item>
     </style>
+
     <style name="MyActionBar" parent="Widget.MaterialComponents.ActionBar.Solid">
         <item name="background">@color/red_700</item>
+    </style>
+
+    <style name="ThemeOverlay.MyAndroidTimetable.FullscreenContainer" parent="">
+        <item name="fullscreenBackgroundColor">@color/light_blue_900</item>
+        <item name="fullscreenTextColor">@color/light_blue_A400</item>
     </style>
 </resources>

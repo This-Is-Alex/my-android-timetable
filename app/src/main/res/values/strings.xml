@@ -29,4 +29,8 @@
     <string name="full_class_frag_duration">Duration</string>
     <string name="full_class_frag_room">Room</string>
     <string name="full_class_frag_rawroom">Raw Room (Debug)</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string name="touch_anywhere_to_close">Tap anywhere to return</string>
 </resources>
