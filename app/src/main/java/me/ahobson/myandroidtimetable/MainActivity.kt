@@ -15,9 +15,11 @@ import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import me.ahobson.myandroidtimetable.calendar.CalendarClickListener
+import me.ahobson.myandroidtimetable.calendar.CalendarDay
 import me.ahobson.myandroidtimetable.calendar.CalendarItem
 import me.ahobson.myandroidtimetable.fragments.*
 import me.ahobson.myandroidtimetable.io.CalendarDownloader
+import java.io.Serializable
 
 
 class MainActivity : AppCompatActivity(), CalendarClickListener, AlexsExitListener, AlexsLoginListener {
@@ -83,9 +85,11 @@ class MainActivity : AppCompatActivity(), CalendarClickListener, AlexsExitListen
         }
     }
 
-    private fun showMainPage() {
+    private fun showMainPage(calendar: ArrayList<CalendarDay>) {
         supportActionBar?.show()
         var fragment = MainFragment()
+
+        intent.putExtra("calendar", calendar)
 
         // don't want to be able to go back to splash screen or login screen
         for (i in 0..supportFragmentManager.backStackEntryCount) {
@@ -99,7 +103,7 @@ class MainActivity : AppCompatActivity(), CalendarClickListener, AlexsExitListen
     }
 
     private fun showCalendarItem(calItem: CalendarItem, animationX: Float, animationY: Float) {
-        val bundle: Bundle = Bundle()
+        val bundle = Bundle()
         bundle.putSerializable("item", calItem)
         bundle.putInt("posX", animationX.toInt())
         bundle.putInt("posY", animationY.toInt())
@@ -114,13 +118,11 @@ class MainActivity : AppCompatActivity(), CalendarClickListener, AlexsExitListen
     }
 
     override fun clickedCalendarItem(item: CalendarItem, rawX: Float, rawY: Float) {
-        supportActionBar?.hide()
         showCalendarItem(item, rawX, rawY)
     }
 
     override fun exitedClassFragment(fragment: ClassSummaryFragment) {
         supportFragmentManager.popBackStackImmediate()
-        supportActionBar?.show()
     }
 
     override fun onBackPressed() {
@@ -138,7 +140,9 @@ class MainActivity : AppCompatActivity(), CalendarClickListener, AlexsExitListen
         val downloader = CalendarDownloader(this)
         lifecycleScope.launch {
             if (downloader.download(url)) {
-                Toast.makeText(downloader.context, "Loaded "+downloader.getCalendar().size+" items", Toast.LENGTH_SHORT).show()
+                val calendar: ArrayList<CalendarDay> = downloader.getCalendar()
+                Toast.makeText(downloader.context, "Loaded "+calendar.size+" classes", Toast.LENGTH_SHORT).show()
+                showMainPage(calendar)
             } else {
                 Toast.makeText(downloader.context, "Failed", Toast.LENGTH_SHORT).show()
             }

@@ -18,7 +18,7 @@ import kotlin.collections.ArrayList
 
 class CalendarDownloader(val context: Context) {
 
-    private val internalCalendar: MutableList<CalendarDay> = ArrayList<CalendarDay>()
+    private val internalCalendar: ArrayList<CalendarDay> = ArrayList()
     private val dateParser = SimpleDateFormat("yyyyMMdd'T'HHmmss", Locale.ENGLISH)
 
     suspend fun download(url: String): Boolean {
@@ -60,8 +60,8 @@ class CalendarDownloader(val context: Context) {
         return false
     }
 
-    fun getCalendar(): List<CalendarDay> {
-        return internalCalendar.toList()
+    fun getCalendar(): ArrayList<CalendarDay> {
+        return internalCalendar
     }
 
     fun loadFromFile() {

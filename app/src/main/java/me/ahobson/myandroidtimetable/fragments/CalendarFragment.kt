@@ -1,5 +1,6 @@
 package me.ahobson.myandroidtimetable.fragments
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -46,7 +47,7 @@ class CalendarFragment : Fragment() {
         paddingEnd.height = 60
         timeOfDayLayout?.addView(paddingEnd)
 
-        val testCalendar: Array<CalendarDay> = arrayOf(
+        /*val testCalendar: Array<CalendarDay> = arrayOf(
             CalendarDay(2021, 3, 27, mutableListOf<CalendarItem>(
                 CalendarItem(10, 30, 30, "SENG440", "Engineering Core E8", ClassType.LECTURE),
                 CalendarItem(10, 0, 120, "SENG401", "JE 101", ClassType.LECTURE),
@@ -55,9 +56,16 @@ class CalendarFragment : Fragment() {
                 CalendarItem(9, 30, 30, "123", "Engineering Core E8", ClassType.LECTURE),
                 CalendarItem(8, 30, 60, "345", "Engineering Core E8", ClassType.LECTURE)
             ))
-        )
+        )*/
+
+        var calendarList = ArrayList<CalendarDay>()
+        val theActivity: Activity = requireActivity()
+        if (theActivity.intent != null && theActivity!!.intent!!.hasExtra("calendar")) {
+            calendarList = theActivity.intent!!.getSerializableExtra("calendar") as ArrayList<CalendarDay>
+        }
         val calAdapter =
-            CalendarAdapter(testCalendar)
+                CalendarAdapter(calendarList.toTypedArray())
+
         val recyclerView: RecyclerView = view.findViewById(R.id.calendar_recycler_view)
         val scrollView: ScrollView = view.findViewById(R.id.calendar_scroll_view)
 

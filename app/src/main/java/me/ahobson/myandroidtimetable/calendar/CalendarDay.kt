@@ -1,11 +1,12 @@
 package me.ahobson.myandroidtimetable.calendar
 
 import android.util.Log
+import java.io.Serializable
 import java.util.*
 
 class CalendarDay (private val year: Int, private val month: Int, private val day: Int,
                    val classes: MutableList<CalendarItem>
-                   )
+                   ): Serializable
 {
     fun getDateString(): String {
         var year = year
