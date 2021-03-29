@@ -24,7 +24,11 @@ class CalendarDownloader(val context: Context) {
     suspend fun download(url: String): Boolean {
         var result = false
         withContext(Dispatchers.IO) {
-            result = downloadCalendar(url)
+            result = try {
+                downloadCalendar(url)
+            } catch (exception: Exception) {
+                false
+            }
         }
         return result
     }

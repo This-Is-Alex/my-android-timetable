@@ -145,6 +145,7 @@ class MainActivity : AppCompatActivity(), CalendarClickListener, AlexsExitListen
                 showMainPage(calendar)
             } else {
                 Toast.makeText(downloader.context, "Failed", Toast.LENGTH_SHORT).show()
+                showLoginPage()
             }
         }
     }
