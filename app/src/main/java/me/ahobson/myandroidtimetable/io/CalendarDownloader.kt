@@ -38,17 +38,17 @@ class CalendarDownloader(val context: Context) {
         try {
             val calendarContents = connection.inputStream.readBytes()
 
-            Log.println(Log.INFO, "Downloader", "Downloaded file")
+            Log.println(Log.INFO, "CalendarDownloader", "Downloaded file")
 
             internalCalendar.clear()
             try {
                 parseCalendarFile(calendarContents)
             } catch (exception: Exception) {
-                Log.println(Log.INFO, "Downloader", "Parsed with exception: "+Log.getStackTraceString(exception))
+                Log.e("CalendarDownloader", "Parsed with exception: "+Log.getStackTraceString(exception))
                 return false
             }
 
-            Log.println(Log.INFO, "Downloader", "Parsed calendar")
+            Log.println(Log.INFO, "CalendarDownloader", "Parsed calendar")
 
             return if (internalCalendar.size > 0) {
                 context.openFileOutput("calendar.ics", Context.MODE_PRIVATE).use {
@@ -80,16 +80,19 @@ class CalendarDownloader(val context: Context) {
         val lines = reader.readLines()
 
         var i = 0
+        var totalEvents = 0
         var eventStart = 0
         while (i < lines.size) {
             val line = lines[i]
             if (line == "BEGIN:VEVENT") {
+                totalEvents++
                 eventStart = i + 1
             } else if (line == "END:VEVENT") {
                 parseCalendarEntry(lines.subList(eventStart, i))
             }
             i++
         }
+        Log.d("CalendarDownloader", "The calendar had $totalEvents events")
     }
 
     private fun parseCalendarEntry(lines: List<String>) {
@@ -137,8 +140,13 @@ class CalendarDownloader(val context: Context) {
         if (startDate != null && endDate != null && courseTitle.isNotEmpty() && classType != null && location.isNotEmpty()) {
             val calendarItem = createCalendarItem(startDate, endDate, courseTitle, classType, location)
             if (calendarItem != null) {
+                Log.d("CalendarDownloader", "Parsed calendar item: $startDate, ${calendarItem.startHour}:${calendarItem.startMinute}, ${calendarItem.courseTitle}")
                 saveCalendarEntry(calendarItem, startDate)
+            } else {
+                Log.w("CalendarDownloader", "Skipped one calendar entry: createCalendarItem returned null: $startDate, $endDate, $courseTitle, $classType, $location")
             }
+        } else {
+            Log.w("CalendarDownloader", "Skipped one calendar entry: Not enough info: $startDate, $endDate, $courseTitle, $classType, $location")
         }
     }
 
@@ -157,7 +165,7 @@ class CalendarDownloader(val context: Context) {
             val room = parseRoom(startDate, location)
             calendarItem = CalendarItem(startHour, startMinute, duration, courseTitle, room, classType)
         } catch (exception: ArrayIndexOutOfBoundsException) {
-            Log.println(Log.ERROR, "CalendarParser", "ArrayIndexOutOfBoundsException parsing room $location")
+            Log.e("CalendarParser", "ArrayIndexOutOfBoundsException parsing room $location")
         }
         return calendarItem
     }
@@ -167,11 +175,11 @@ class CalendarDownloader(val context: Context) {
         for (candidateRoom in candidateRooms) {
             val datesIndex = candidateRoom.indexOf("(")
             if (datesIndex == -1) {
-                return candidateRoom
+                return candidateRoom.trim()
             } else {
                 val dateRanges = candidateRoom.substring(datesIndex + 1)
                 if (withinRange(startDate, dateRanges)) {
-                    return candidateRoom
+                    return candidateRoom.trim()
                 }
             }
         }
@@ -228,6 +236,7 @@ class CalendarDownloader(val context: Context) {
 
         for (calDay in internalCalendar) {
             if (calDay.happensOnDay(year, month, day)) {
+                Log.d("CalendarDownloader", "Saved to $day,$month,$year")
                 calDay.classes.add(entry)
                 return
             }
@@ -235,5 +244,6 @@ class CalendarDownloader(val context: Context) {
         val calDay = CalendarDay(year, month, day, ArrayList<CalendarItem>())
         calDay.classes.add(entry)
         internalCalendar.add(calDay)
+        Log.d("CalendarDownloader", "Saved to $day,$month,$year (new day)")
     }
 }

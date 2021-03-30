@@ -17,6 +17,6 @@ class CalendarDay (private val year: Int, private val month: Int, private val da
     }
 
     fun happensOnDay(year: Int, month: Int, day: Int): Boolean {
-        return this.year == year && (this.month -1 ) == month && this.day == day
+        return this.year == year && this.month == month && this.day == day
     }
 }

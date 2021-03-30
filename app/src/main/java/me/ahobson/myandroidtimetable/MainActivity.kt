@@ -141,7 +141,11 @@ class MainActivity : AppCompatActivity(), CalendarClickListener, AlexsExitListen
         lifecycleScope.launch {
             if (downloader.download(url)) {
                 val calendar: ArrayList<CalendarDay> = downloader.getCalendar()
-                Toast.makeText(downloader.context, "Loaded "+calendar.size+" classes", Toast.LENGTH_SHORT).show()
+                var classCount = 0
+                for (day in calendar) {
+                    classCount += day.classes.size
+                }
+                Toast.makeText(downloader.context, "Loaded $classCount classes", Toast.LENGTH_SHORT).show()
                 showMainPage(calendar)
             } else {
                 Toast.makeText(downloader.context, "Failed", Toast.LENGTH_SHORT).show()

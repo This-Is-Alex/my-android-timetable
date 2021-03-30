@@ -2,6 +2,7 @@ package me.ahobson.myandroidtimetable.fragments
 
 import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -47,21 +48,17 @@ class CalendarFragment : Fragment() {
         paddingEnd.height = 60
         timeOfDayLayout?.addView(paddingEnd)
 
-        /*val testCalendar: Array<CalendarDay> = arrayOf(
-            CalendarDay(2021, 3, 27, mutableListOf<CalendarItem>(
-                CalendarItem(10, 30, 30, "SENG440", "Engineering Core E8", ClassType.LECTURE),
-                CalendarItem(10, 0, 120, "SENG401", "JE 101", ClassType.LECTURE),
-                CalendarItem(10, 30, 60, "567", "Engineering Core E8", ClassType.LECTURE),
-                CalendarItem(9, 30, 30, "234", "Engineering Core E8", ClassType.LECTURE),
-                CalendarItem(9, 30, 30, "123", "Engineering Core E8", ClassType.LECTURE),
-                CalendarItem(8, 30, 60, "345", "Engineering Core E8", ClassType.LECTURE)
-            ))
-        )*/
-
         var calendarList = ArrayList<CalendarDay>()
         val theActivity: Activity = requireActivity()
         if (theActivity.intent != null && theActivity!!.intent!!.hasExtra("calendar")) {
             calendarList = theActivity.intent!!.getSerializableExtra("calendar") as ArrayList<CalendarDay>
+            Log.d("CalendarFragment", "Loaded fragment with ${calendarList.size} days")
+            for (day in calendarList) {
+                Log.d("CalendarFragment", "${day.getDateString()}: ${day.classes.size} events")
+                for (event in day.classes) {
+                    Log.d("CalendarFragment", "${event.courseTitle} at ${event.startHour}:${event.startMinute} for ${event.durationMinutes}mins in ${event.room}")
+                }
+            }
         }
         val calAdapter =
                 CalendarAdapter(calendarList.toTypedArray())
