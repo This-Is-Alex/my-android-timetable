@@ -30,11 +30,14 @@ class MainActivity : AppCompatActivity(), CalendarClickListener, AlexsExitListen
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val preferences = getPreferences(Context.MODE_PRIVATE)
-        if (preferences.contains("url")) {
-            showSplashScreen(getString(R.string.progress_downloading_calendar))
-        } else {
-            showLoginPage()
+        val fragManager = supportFragmentManager
+        if(fragManager.findFragmentByTag("calendar") == null) {
+            val preferences = getPreferences(Context.MODE_PRIVATE)
+            if (preferences.contains("url")) {
+                showSplashScreen(getString(R.string.progress_downloading_calendar))
+            } else {
+                showLoginPage()
+            }
         }
     }
 
@@ -97,7 +100,7 @@ class MainActivity : AppCompatActivity(), CalendarClickListener, AlexsExitListen
         }
 
         supportFragmentManager.commit {
-            replace(R.id.fragment_container, fragment)
+            replace(R.id.fragment_container, fragment, "calendar")
             setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
         }
     }
