@@ -46,4 +46,6 @@
 
     <string name="mytimetable_hyperlink_text">Open MyTimetable</string>
     <string name="mytimetable_url">https://mytimetable.canterbury.ac.nz</string>
+
+    <string name="room_not_found">Unknown</string>
 </resources>

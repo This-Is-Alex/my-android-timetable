@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import me.ahobson.myandroidtimetable.R
 import me.ahobson.myandroidtimetable.calendar.CalendarDay
 import me.ahobson.myandroidtimetable.calendar.CalendarItem
 import me.ahobson.myandroidtimetable.calendar.ClassType
@@ -69,10 +70,14 @@ class CalendarDownloader(val context: Context) {
     }
 
     fun loadFromFile() {
-        val calendarContents = context.openFileInput("calendar.ics").readBytes()
+        try {
+            val calendarContents = context.openFileInput("calendar.ics").readBytes()
 
-        internalCalendar.clear()
-        parseCalendarFile(calendarContents)
+            internalCalendar.clear()
+            parseCalendarFile(calendarContents)
+        } catch (exception: FileNotFoundException) {
+            Log.e("CalendarDownloader", "Internal file not found but a call to loadFromFile was still made")
+        }
     }
 
     private fun parseCalendarFile(contents: ByteArray) {
@@ -173,6 +178,7 @@ class CalendarDownloader(val context: Context) {
     private fun parseRoom(startDate: Date, rawRoom: String): String {
         val candidateRooms = rawRoom.split(")\\,")
         for (candidateRoom in candidateRooms) {
+            Log.d("CalendarDownloader", "Trying room $candidateRoom")
             val datesIndex = candidateRoom.indexOf("(")
             if (datesIndex == -1) {
                 return candidateRoom.trim()
@@ -183,7 +189,8 @@ class CalendarDownloader(val context: Context) {
                 }
             }
         }
-        return "Unknown"
+        Log.e("CalendarDownloader", "Failed to parse '$rawRoom' for date $startDate")
+        return context.getString(R.string.room_not_found)
     }
 
     private fun withinRange(date: Date, dateRangeString: String): Boolean {
@@ -193,14 +200,17 @@ class CalendarDownloader(val context: Context) {
         val dayOfYear = calendar.get(Calendar.DAY_OF_YEAR)
         for (candidateDate in candidateDates) {
             if (candidateDate.contains("-")) {
+                Log.d("CalendarDownloader", "Trying date range $candidateDate")
                 val dateRangeString = candidateDate.split("-")
                 val startDateRange = parseOneLocationDate(dateRangeString[0])
                 val endDateRange = parseOneLocationDate(dateRangeString[1])
+                Log.d("CalendarDownloader", "Starts ${startDateRange.time} and ends ${endDateRange.time}")
                 if (startDateRange.get(Calendar.DAY_OF_YEAR) <= dayOfYear && endDateRange.get(Calendar.DAY_OF_YEAR) >= dayOfYear) {
                     return true
                 }
             } else {
                 val day = parseOneLocationDate(candidateDate)
+                Log.d("CalendarDownloader", "Event is on ${day.time}")
                 if (day.get(Calendar.DAY_OF_YEAR) == dayOfYear) {
                     return true
                 }
@@ -221,7 +231,7 @@ class CalendarDownloader(val context: Context) {
         val day = Integer.parseInt(components[0].trim())
         val month = Integer.parseInt(monthString.trim())
         val calendar = Calendar.getInstance()
-        calendar.set(Calendar.MONTH, month)
+        calendar.set(Calendar.MONTH, month-1)
         calendar.set(Calendar.DAY_OF_MONTH, day)
         //assumes the calendar is for this year so don't worry about leap years
         return calendar
