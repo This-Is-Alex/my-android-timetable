@@ -46,16 +46,18 @@ class CalendarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val dayString = if (day < 10) "0$day" else day.toString()
         val monthString = if (month < 10) "0$month" else month.toString()
 
-        val dayOfWeekString = when (dayOfWeek) {
-            1 -> "Sun"
-            2 -> "Mon"
-            3 -> "Tue"
-            4 -> "Wed"
-            5 -> "Thu"
-            6 -> "Fri"
-            7 -> "Sat"
-            else -> "Error"
+        val dayOfWeekResourceId = when (dayOfWeek) {
+            1 -> R.string.sunday_short
+            2 -> R.string.monday_short
+            3 -> R.string.tuesday_short
+            4 -> R.string.wednesday_short
+            5 -> R.string.thursday_short
+            6 -> R.string.friday_short
+            7 -> R.string.saturday_short
+            else -> R.string.wip
         }
+
+        val dayOfWeekString = itemView.context.getString(dayOfWeekResourceId)
 
         return "$dayString/$monthString\n$dayOfWeekString"
     }
