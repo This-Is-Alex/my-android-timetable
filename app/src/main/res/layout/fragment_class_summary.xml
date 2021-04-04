@@ -3,13 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="?attr/colorOnPrimary"
     tools:context=".fragments.ClassSummaryFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/class_summary_coursetitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/wip" />
 
         <TableLayout
             android:id="@+id/class_summary_frame"
@@ -20,99 +26,27 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/full_class_frag_class_type" />
-
-                <TextView
-                    android:id="@+id/full_class_info_class_type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
-            </TableRow>
+                android:layout_height="match_parent"/>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/full_class_frag_time_start" />
-
-                <TextView
-                    android:id="@+id/full_class_info_time_start"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
-            </TableRow>
+                android:layout_height="match_parent"/>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/full_class_frag_time_end" />
-
-                <TextView
-                    android:id="@+id/full_class_info_time_end"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
-            </TableRow>
+                android:layout_height="match_parent"/>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/full_class_frag_duration" />
-
-                <TextView
-                    android:id="@+id/full_class_info_duration"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
-            </TableRow>
+                android:layout_height="match_parent"/>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/full_class_frag_room" />
-
-                <TextView
-                    android:id="@+id/full_class_info_room"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
-            </TableRow>
+                android:layout_height="match_parent"/>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/full_class_frag_rawroom" />
-
-                <TextView
-                    android:id="@+id/full_class_info_rawroom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
-            </TableRow>
+                android:layout_height="match_parent"/>
         </TableLayout>
 
         <TextView
