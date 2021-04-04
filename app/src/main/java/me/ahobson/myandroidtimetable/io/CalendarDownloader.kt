@@ -185,7 +185,7 @@ class CalendarDownloader(val context: Context) {
             } else {
                 val dateRanges = candidateRoom.substring(datesIndex + 1)
                 if (withinRange(startDate, dateRanges)) {
-                    return candidateRoom.trim()
+                    return candidateRoom.substring(0, datesIndex).trim()
                 }
             }
         }
