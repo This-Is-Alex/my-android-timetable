@@ -9,9 +9,12 @@ import android.view.ViewAnimationUtils
 import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import me.ahobson.myandroidtimetable.AlexsExitListener
 import me.ahobson.myandroidtimetable.R
+import me.ahobson.myandroidtimetable.calendar.CalendarDay
+import me.ahobson.myandroidtimetable.calendar.CalendarItem
 import kotlin.math.hypot
 
 
@@ -28,10 +31,16 @@ class ClassSummaryFragment : Fragment() {
         posX = requireArguments().getInt("posX")
         posY = requireArguments().getInt("posY")
 
-        val calitem = requireArguments().getSerializable("item")
-        //TODO
-
         val rootView: View = inflater.inflate(R.layout.fragment_class_summary, container, false)
+
+        if (requireArguments().containsKey("item") && requireArguments().getSerializable("item") is CalendarItem) {
+            val calitem: CalendarItem = requireArguments().getSerializable("item") as CalendarItem
+
+            rootView.findViewById<TextView>(R.id.class_summary_coursetitle).text = calitem.courseTitle
+            rootView.findViewById<TextView>(R.id.class_summary_room).text = calitem.room
+            rootView.findViewById<TextView>(R.id.class_summary_date).text = calitem.getFormattedTime()
+            rootView.findViewById<TextView>(R.id.class_summary_classtype).text = calitem.getLocalisedClassType(requireContext())
+        }
 
         rootView.addOnLayoutChangeListener(object : View.OnLayoutChangeListener {
             override fun onLayoutChange(

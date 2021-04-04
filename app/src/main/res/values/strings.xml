@@ -58,4 +58,11 @@
     <string name="friday_short">Fri</string>
     <string name="saturday_short">Sat</string>
     <string name="sunday_short">Sun</string>
+
+    <string name="classtype_lecture">Lecture</string>
+    <string name="classtype_lab">Lab</string>
+    <string name="classtype_tutorial">Tutorial</string>
+    <string name="classtype_test">Test</string>
+    <string name="classtype_other">Other</string>
+    <string name="classtype_workshop">Workshop</string>
 </resources>
