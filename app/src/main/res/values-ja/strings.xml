@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">僕の「UC」 カレンダー </string>
+    <string name="title_activity_settings">設定</string>
+
+    <string name="calendar_top_left">時間\n</string>
+    <string name="wip">進行中の作業 </string>
+
+    <string name="touch_anywhere_to_close">タッチして戻る </string>
+
+    <string name="url_field">カレンダー URL</string>
+    <string name="progress_downloading_calendar">ダウンロード  カレンダー</string>
+    <string name="progress_parsing_calendar">生成  カレンダー</string>
+    <string name="url_confirm">スタート</string>
+    <string name="instructions_for_getting_calendar_url">指示がカレンダー URL</string>
+    <string name="login_instructions">指示:\n
+        1. ログイン MyTimetable\n
+        2. 「Subscribe to your timetable」まで下にスクロールします \n
+        3. URLを上のテキストボックスにコピーして、開始を押します</string>
+
+    <string name="mytimetable_hyperlink_text">MyTimetableを開く </string>
+
+    <string name="room_not_found">わからない</string>
+
+    <string name="monday">月曜</string>
+    <string name="tuesday">火曜日</string>
+    <string name="wednesday">水曜日</string>
+    <string name="thursday">木曜日</string>
+    <string name="friday">金曜日</string>
+    <string name="saturday">土曜日</string>
+    <string name="sunday">日曜日</string>
+
+    <string name="monday_short">月</string>
+    <string name="tuesday_short">火</string>
+    <string name="wednesday_short">水</string>
+    <string name="thursday_short">木</string>
+    <string name="friday_short">金</string>
+    <string name="saturday_short">土</string>
+    <string name="sunday_short">日</string>
+
+    <string name="classtype_lecture">講義</string>
+    <string name="classtype_lab">ラボ</string>
+    <string name="classtype_tutorial">チュートリアル</string>
+    <string name="classtype_test">テスト</string>
+    <string name="classtype_other">わからない</string>
+    <string name="classtype_workshop">ワークショップ</string>
+</resources>

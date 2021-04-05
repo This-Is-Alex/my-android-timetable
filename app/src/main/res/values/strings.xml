@@ -2,17 +2,19 @@
     <string name="app_name">My UC Timetable</string>
     <string name="title_activity_settings">Settings</string>
 
-    <!-- Preference Titles -->
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+
+    <!--
     <string name="general_header">General Settings</string>
     <string name="notification_header">Notifications</string>
+    -->
 
     <string name="calendar_top_left">Time of\nday</string>
 
-    <!-- General Preferences -->
+    <!--
     <string name="sunday_first_day">Sunday is first day of week</string>
     <string name="display_24_hour">Display 24-hour time</string>
 
-    <!-- Notification Preferences -->
     <string name="lecture_notification_switch">Receive notifications for lectures</string>
     <string name="lab_notification_switch">Receive notifications for labs/tutorials</string>
     <string name="notification_mins_before_lecture">Minutes before lecture to receive notification</string>
@@ -24,6 +26,7 @@
 
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    -->
     <string name="wip">Work In Progress</string>
 
     <string name="touch_anywhere_to_close">Tap anywhere to return</string>
@@ -39,7 +42,7 @@
         3. Copy the URL into the text box above and press start</string>
 
     <string name="mytimetable_hyperlink_text">Open MyTimetable</string>
-    <string name="mytimetable_url">https://mytimetable.canterbury.ac.nz</string>
+    <string name="mytimetable_url" translatable="false">https://mytimetable.canterbury.ac.nz</string>
 
     <string name="room_not_found">Unknown</string>
 
