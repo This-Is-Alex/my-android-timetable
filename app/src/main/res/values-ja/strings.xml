@@ -14,8 +14,8 @@
     <string name="instructions_for_getting_calendar_url">指示がカレンダー URL</string>
     <string name="login_instructions">指示:\n
         1. ログイン MyTimetable\n
-        2. 「Subscribe to your timetable」まで下にスクロールします \n
-        3. URLを上のテキストボックスにコピーして、開始を押します</string>
+        2. 「Subscribe to your timetable」まで下にスクロール \n
+        3. URLを上のテキストボックスにコピーして、開始を押</string>
 
     <string name="mytimetable_hyperlink_text">MyTimetableを開く </string>
 
@@ -45,4 +45,8 @@
     <string name="classtype_workshop">ワークショップ</string>
 
     <string name="today">今日</string>
+
+    <string name="offline_calendar">オフライン カレンダーを見る</string>
+    <string name="loaded_calendar">%COUNT%つのクラスをロードし</string>
+    <string name="failed_calendar">カレンダーの読み込みに失敗</string>
 </resources>

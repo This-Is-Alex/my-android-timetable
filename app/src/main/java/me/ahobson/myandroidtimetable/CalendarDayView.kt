@@ -134,12 +134,6 @@ class CalendarDayView @JvmOverloads constructor(
         canvas.drawLine(0.5.toFloat(), 0.toFloat(), 0.5.toFloat(), contentHeight.toFloat(), calendarGridPaint)
 
         for (event in calendarItemList) {
-            val top = (event.startHour * 120 + 2 * event.startMinute).toFloat()
-            val clashIndex = clashIndexes.getOrElse(event, {0})
-            val clashTotal = clashCount.getOrElse(event, {1})
-            val objectWidth = contentWidth.toFloat() / clashTotal
-            val objectLeftOffset = (contentWidth.toFloat() / clashTotal) * clashIndex
-
             val rect = getHitBox(event, contentWidth)
             drawEvent(canvas, rect, event)
         }

@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity(), CalendarClickListener, AlexsExitListen
         var fragment = SignInFragment()
         supportFragmentManager.commit {
             replace(R.id.fragment_container, fragment)
-            setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
+            setTransition( FragmentTransaction.TRANSIT_FRAGMENT_CLOSE )
         }
     }
 
@@ -151,7 +151,7 @@ class MainActivity : AppCompatActivity(), CalendarClickListener, AlexsExitListen
             if (downloader.download(url)) {
                 success = true
             } else if (downloader.offlineCalendarExists()) {
-                Toast.makeText(downloader.context, "Viewing offline calendar", Toast.LENGTH_SHORT)
+                Toast.makeText(downloader.context, getString(R.string.offline_calendar), Toast.LENGTH_SHORT)
                     .show()
                 success = downloader.loadFromFile()
             }
@@ -166,11 +166,11 @@ class MainActivity : AppCompatActivity(), CalendarClickListener, AlexsExitListen
                 for (day in calendar) {
                     classCount += day.classes.size
                 }
-                Toast.makeText(downloader.context, "Loaded $classCount classes", Toast.LENGTH_SHORT)
+                Toast.makeText(downloader.context, getString(R.string.loaded_calendar).replace("%COUNT%", classCount.toString()), Toast.LENGTH_SHORT)
                     .show()
                 showMainPage(calendar)
             } else {
-                Toast.makeText(downloader.context, "Failed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(downloader.context, getString(R.string.failed_calendar), Toast.LENGTH_SHORT).show()
                 showLoginPage()
             }
         }

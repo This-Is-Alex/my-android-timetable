@@ -70,4 +70,8 @@
     <string name="classtype_workshop">Workshop</string>
 
     <string name="today">Today</string>
+
+    <string name="offline_calendar">Viewing offline calendar</string>
+    <string name="loaded_calendar">Loaded %COUNT% classes</string>
+    <string name="failed_calendar">Failed to load calendar</string>
 </resources>

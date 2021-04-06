@@ -6,8 +6,7 @@
     android:layout_height="80dp"
     android:layout_gravity="center"
     card_view:cardCornerRadius="4dp"
-    card_view:cardUseCompatPadding="true"
-    tools:context=".OneClassToday">
+    card_view:cardUseCompatPadding="true">
 
 
     <LinearLayout

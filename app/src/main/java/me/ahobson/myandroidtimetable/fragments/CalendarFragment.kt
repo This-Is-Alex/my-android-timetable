@@ -99,7 +99,6 @@ class CalendarFragment : Fragment() {
     }
 
     private fun formatHour(hour: Int): String {
-        //TODO check if display 24-hour times
         return if (hour < 10) "0$hour:00" else "$hour:00"
     }
 }
