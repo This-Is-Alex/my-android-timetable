@@ -32,7 +32,7 @@ class SignInFragment : Fragment() {
         loginButton.setOnClickListener {
             val activity = requireActivity()
             if (activity is AlexsLoginListener) {
-                val urlField: EditText = view.findViewById<EditText>(R.id.urlField)
+                val urlField: EditText = view.findViewById(R.id.urlField)
                 val text: String = urlField.text.toString()
                 activity.loginWithUrl(text)
             }

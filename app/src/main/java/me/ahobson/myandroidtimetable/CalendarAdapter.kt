@@ -1,16 +1,11 @@
 package me.ahobson.myandroidtimetable
 
-import android.annotation.SuppressLint
-import android.graphics.Typeface
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import me.ahobson.myandroidtimetable.calendar.CalendarDay
 import me.ahobson.myandroidtimetable.calendar.CalendarItem
 import me.ahobson.myandroidtimetable.calendar.CalendarViewHolder
-import java.time.Year
 import java.util.*
 
 class CalendarAdapter(private val calendarDays: Array<CalendarDay>)

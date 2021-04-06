@@ -1,12 +1,10 @@
 package me.ahobson.myandroidtimetable
 
-import android.animation.Animator
 import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
@@ -19,12 +17,10 @@ import me.ahobson.myandroidtimetable.calendar.CalendarDay
 import me.ahobson.myandroidtimetable.calendar.CalendarItem
 import me.ahobson.myandroidtimetable.fragments.*
 import me.ahobson.myandroidtimetable.io.CalendarDownloader
-import java.io.Serializable
-
 
 class MainActivity : AppCompatActivity(), CalendarClickListener, AlexsExitListener, AlexsLoginListener {
 
-    var isSignedIn: Boolean = false
+    private var isSignedIn: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,7 +73,7 @@ class MainActivity : AppCompatActivity(), CalendarClickListener, AlexsExitListen
 
     private fun showSplashScreen(message: String) {
         supportActionBar?.hide()
-        var fragment = SplashScreenFragment(message)
+        val fragment = SplashScreenFragment(message)
         supportFragmentManager.commit {
             replace(R.id.fragment_container, fragment)
             setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
@@ -86,7 +82,7 @@ class MainActivity : AppCompatActivity(), CalendarClickListener, AlexsExitListen
 
     private fun showLoginPage() {
         supportActionBar?.show()
-        var fragment = SignInFragment()
+        val fragment = SignInFragment()
         supportFragmentManager.commit {
             replace(R.id.fragment_container, fragment)
             setTransition( FragmentTransaction.TRANSIT_FRAGMENT_CLOSE )
@@ -95,7 +91,7 @@ class MainActivity : AppCompatActivity(), CalendarClickListener, AlexsExitListen
 
     private fun showMainPage(calendar: ArrayList<CalendarDay>) {
         supportActionBar?.show()
-        var fragment = MainFragment()
+        val fragment = MainFragment()
 
         intent.putExtra("calendar", calendar)
 
@@ -115,7 +111,7 @@ class MainActivity : AppCompatActivity(), CalendarClickListener, AlexsExitListen
         bundle.putSerializable("item", calItem)
         bundle.putInt("posX", animationX.toInt())
         bundle.putInt("posY", animationY.toInt())
-        var fragment =
+        val fragment =
             ClassSummaryFragment()
         fragment.arguments = bundle
 

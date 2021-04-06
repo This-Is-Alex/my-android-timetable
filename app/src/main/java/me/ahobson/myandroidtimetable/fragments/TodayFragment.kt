@@ -24,12 +24,12 @@ class TodayFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_today, container, false)
         val theActivity: Activity = requireActivity()
-        val cardList: LinearLayout = view.findViewById<LinearLayout>(R.id.today_list)
+        val cardList: LinearLayout = view.findViewById(R.id.today_list)
         cardList.removeAllViews()
 
         var hasAddedClass = false
 
-        if (theActivity.intent != null && theActivity!!.intent!!.hasExtra("calendar")) {
+        if (theActivity.intent != null && theActivity.intent!!.hasExtra("calendar")) {
             val calendarList = theActivity.intent!!.getSerializableExtra("calendar") as ArrayList<CalendarDay>
 
             val calendar = Calendar.getInstance()

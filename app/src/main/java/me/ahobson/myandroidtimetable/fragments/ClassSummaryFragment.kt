@@ -13,7 +13,6 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import me.ahobson.myandroidtimetable.AlexsExitListener
 import me.ahobson.myandroidtimetable.R
-import me.ahobson.myandroidtimetable.calendar.CalendarDay
 import me.ahobson.myandroidtimetable.calendar.CalendarItem
 import kotlin.math.hypot
 
@@ -22,7 +21,7 @@ class ClassSummaryFragment : Fragment() {
 
     private var posX = 0
     private var posY = 0
-    private var listener: AlexsExitListener? = null;
+    private var listener: AlexsExitListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,6 +67,7 @@ class ClassSummaryFragment : Fragment() {
 
         rootView.setOnTouchListener { _, _ ->
             closeFragment()
+            rootView.performClick()
             true
         }
 
@@ -117,8 +117,8 @@ class ClassSummaryFragment : Fragment() {
         val radius: Int? = getEnclosingCircleRadius(requireView(), cx, cy)
         val anim = ViewAnimationUtils.createCircularReveal(
             view,
-            cx.toInt(),
-            cy.toInt(),
+            cx,
+            cy,
             radius!!.toFloat(),
             0f
         )

@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.ScrollView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,10 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import me.ahobson.myandroidtimetable.CalendarAdapter
 import me.ahobson.myandroidtimetable.R
 import me.ahobson.myandroidtimetable.calendar.CalendarDay
-import me.ahobson.myandroidtimetable.calendar.CalendarItem
-import me.ahobson.myandroidtimetable.calendar.ClassType
 import java.util.*
-
 
 class CalendarFragment : Fragment() {
 
@@ -50,7 +46,7 @@ class CalendarFragment : Fragment() {
 
         var calendarList = ArrayList<CalendarDay>()
         val theActivity: Activity = requireActivity()
-        if (theActivity.intent != null && theActivity!!.intent!!.hasExtra("calendar")) {
+        if (theActivity.intent != null && theActivity.intent!!.hasExtra("calendar")) {
             calendarList = theActivity.intent!!.getSerializableExtra("calendar") as ArrayList<CalendarDay>
             Log.d("CalendarFragment", "Loaded fragment with ${calendarList.size} days")
             for (day in calendarList) {
@@ -64,7 +60,6 @@ class CalendarFragment : Fragment() {
                 CalendarAdapter(calendarList.toTypedArray())
 
         val recyclerView: RecyclerView = view.findViewById(R.id.calendar_recycler_view)
-        val scrollView: ScrollView = view.findViewById(R.id.calendar_scroll_view)
 
         //adapted from https://stackoverflow.com/questions/51201482/android-percent-screen-width-in-recyclerview-item/51224889
         val layoutManager = object : LinearLayoutManager(context) {
@@ -75,13 +70,12 @@ class CalendarFragment : Fragment() {
         }
 
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
-        recyclerView?.layoutManager = layoutManager
-        recyclerView?.adapter = calAdapter
+        recyclerView.layoutManager = layoutManager
+        recyclerView.adapter = calAdapter
 
         val calendar = Calendar.getInstance()
-        //TODO if Monday is marked as first day of week
         val dayOfYear = calendar.get(Calendar.DAY_OF_YEAR) - calendar.get(Calendar.DAY_OF_WEEK)
-        recyclerView?.scrollToPosition(dayOfYear)
+        recyclerView.scrollToPosition(dayOfYear)
 
         return view
     }
@@ -89,7 +83,7 @@ class CalendarFragment : Fragment() {
     private fun createLabel(): TextView {
         val timeOfDayLabel = TextView(context)
         timeOfDayLabel.layoutParams = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.FILL_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT)
         timeOfDayLabel.gravity = Gravity.CENTER
         timeOfDayLabel.height = 120

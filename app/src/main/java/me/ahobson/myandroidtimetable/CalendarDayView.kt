@@ -1,7 +1,5 @@
 package me.ahobson.myandroidtimetable
 
-import android.R
-import android.R.color
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
@@ -9,7 +7,6 @@ import android.graphics.Paint
 import android.graphics.RectF
 import android.text.TextPaint
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import me.ahobson.myandroidtimetable.calendar.CalendarClickListener
@@ -18,17 +15,16 @@ import me.ahobson.myandroidtimetable.calendar.CalendarItem
 import java.util.*
 import kotlin.collections.ArrayList
 
-
 @SuppressLint("ClickableViewAccessibility")
 class CalendarDayView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
     private var _calendarDay: CalendarDay? = null
-    private val calendarItemList: MutableList<CalendarItem> = ArrayList<CalendarItem>()
-    private val clashIndexes: MutableMap<CalendarItem, Int> = HashMap<CalendarItem, Int>()
-    private val clashCount: MutableMap<CalendarItem, Int> = HashMap<CalendarItem, Int>()
-    private val hitBoxes: MutableMap<CalendarItem, RectF> = HashMap<CalendarItem, RectF>()
+    private val calendarItemList: MutableList<CalendarItem> = ArrayList()
+    private val clashIndexes: MutableMap<CalendarItem, Int> = HashMap()
+    private val clashCount: MutableMap<CalendarItem, Int> = HashMap()
+    private val hitBoxes: MutableMap<CalendarItem, RectF> = HashMap()
 
     init {
         this.setOnTouchListener { _, event ->
@@ -53,8 +49,6 @@ class CalendarDayView @JvmOverloads constructor(
             computeTimetableOrder()
             updateHitBoxes()
         }
-
-    private var shortSummary: String = ""
 
     private fun computeTimetableOrder() {
         calendarItemList.clear()
@@ -81,7 +75,7 @@ class CalendarDayView @JvmOverloads constructor(
                     calendarItemList[i].startMinute == calendarItemList[i-1].startMinute)
             if (temporaryList[i] != calendarItemList[i] || sameStartTime) {
                 var clashIndex = 0
-                var singleClashList: MutableList<CalendarItem> = ArrayList<CalendarItem>()
+                val singleClashList: MutableList<CalendarItem> = ArrayList()
                 while (i < temporaryList.size && (temporaryList[i] != calendarItemList[i] || sameStartTime)) {
                     clashIndexes[calendarItemList[i]] = clashIndex
                     singleClashList.add(calendarItemList[i])
@@ -140,14 +134,14 @@ class CalendarDayView @JvmOverloads constructor(
     }
 
     private fun drawEvent(canvas: Canvas, rect: RectF, calendarItem: CalendarItem) {
-        canvas.save();
+        canvas.save()
         canvas.clipRect(rect)
         canvas.drawRoundRect(rect, 6.toFloat(), 6.toFloat(), calendarEventPaint)
         val fontHeight = calendarTextPaint.textSize
         canvas.drawText(calendarItem.courseTitle, rect.left, rect.top + fontHeight, calendarTextPaint)
         canvas.drawText(calendarItem.rawRoom, rect.left, rect.top + (fontHeight * 2), calendarTextPaint)
-        canvas.drawText(calendarItem.classType.toString().toLowerCase().capitalize(), rect.left, rect.top + (fontHeight * 3), calendarTextPaint)
-        canvas.restore();
+        canvas.drawText(calendarItem.classType.toString().toLowerCase(Locale.ENGLISH).capitalize(), rect.left, rect.top + (fontHeight * 3), calendarTextPaint)
+        canvas.restore()
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -156,16 +150,16 @@ class CalendarDayView @JvmOverloads constructor(
 
     private val calendarGridPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
-        color = context!!.getColor(me.ahobson.myandroidtimetable.R.color.gray)
+        color = context.getColor(R.color.gray)
     }
 
     private val calendarEventPaint = Paint(0).apply {
         style = Paint.Style.FILL
-        color = context!!.getColor(me.ahobson.myandroidtimetable.R.color.amber_700)
+        color = context.getColor(R.color.amber_700)
     }
 
     private val calendarTextPaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = context!!.getColor(R.color.white)
+        color = context.getColor(R.color.white)
         textSize = 30f
     }
 

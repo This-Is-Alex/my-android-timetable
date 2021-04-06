@@ -2,7 +2,6 @@ package me.ahobson.myandroidtimetable.io
 
 import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import me.ahobson.myandroidtimetable.R
@@ -63,7 +62,6 @@ class CalendarDownloader(val context: Context) {
         } finally {
             connection.disconnect()
         }
-        return false
     }
 
     fun getCalendar(): ArrayList<CalendarDay> {
@@ -114,9 +112,9 @@ class CalendarDownloader(val context: Context) {
     private fun parseCalendarEntry(lines: List<String>) {
         var startDate: Date? = null
         var endDate: Date? = null
-        var courseTitle: String = ""
+        var courseTitle = ""
         var classType: ClassType? = null
-        var location: String = ""
+        var location = ""
 
         for (line in lines) {
             val keyValPair = line.split(":")
@@ -169,7 +167,7 @@ class CalendarDownloader(val context: Context) {
     private fun createCalendarItem(startDate: Date, endDate: Date, courseTitle: String,
                                    classType: ClassType, location: String): CalendarItem? {
         val durationMillis = endDate.time - startDate.time
-        var duration = (durationMillis / 1000 / 60).toInt()
+        val duration = (durationMillis / 1000 / 60).toInt()
 
         val calendar = Calendar.getInstance()
         calendar.time = startDate
@@ -204,8 +202,8 @@ class CalendarDownloader(val context: Context) {
         return context.getString(R.string.room_not_found)
     }
 
-    private fun withinRange(date: Date, dateRangeString: String): Boolean {
-        val candidateDates = dateRangeString.split("\\,")
+    private fun withinRange(date: Date, fullDateRangeString: String): Boolean {
+        val candidateDates = fullDateRangeString.split("\\,")
         val calendar = Calendar.getInstance()
         calendar.time = date
         val dayOfYear = calendar.get(Calendar.DAY_OF_YEAR)
@@ -233,7 +231,7 @@ class CalendarDownloader(val context: Context) {
     private fun parseOneLocationDate(locationDate: String): Calendar {
         val components: List<String> = locationDate.split("/")
 
-        var monthString = if (components[1].endsWith(")")) {
+        val monthString = if (components[1].endsWith(")")) {
             components[1].substring(0, components[1].length - 1)
         } else {
             components[1]

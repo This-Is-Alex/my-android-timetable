@@ -6,13 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import me.ahobson.myandroidtimetable.R
 
 class SplashScreenFragment : Fragment {
 
-    var message: String
-        set(value: String) {
+    private var message: String
+        set(value) {
             view?.findViewById<TextView>(R.id.splashStatus)?.text = value
             field = value
         }

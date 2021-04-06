@@ -1,15 +1,8 @@
 package me.ahobson.myandroidtimetable.calendar
 
 import android.graphics.Typeface
-import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Space
-import android.widget.TableLayout
-import android.widget.TableRow
 import android.widget.TextView
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import me.ahobson.myandroidtimetable.CalendarDayView
 import me.ahobson.myandroidtimetable.R
