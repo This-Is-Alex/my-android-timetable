@@ -1,9 +1,7 @@
 package me.ahobson.myandroidtimetable.fragments
 
 import android.app.Activity
-import android.graphics.RectF
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -12,9 +10,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.view.marginTop
-import androidx.core.view.setPadding
-import me.ahobson.myandroidtimetable.OneClassToday
 import me.ahobson.myandroidtimetable.R
 import me.ahobson.myandroidtimetable.calendar.CalendarClickListener
 import me.ahobson.myandroidtimetable.calendar.CalendarDay
@@ -71,13 +66,20 @@ class TodayFragment : Fragment() {
         view.findViewById<TextView>(R.id.one_class_classtitle).text = calendarItem.courseTitle
         view.findViewById<TextView>(R.id.one_class_location).text = calendarItem.room
 
+        var dragged = false
         view.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_UP) {
-                val context = context
-                if (context is CalendarClickListener) {
-                    context.clickedCalendarItem(calendarItem, event.rawX, event.rawY)
+                if (!dragged) {
+                    val context = context
+                    if (context is CalendarClickListener) {
+                        context.clickedCalendarItem(calendarItem, view.x + view.width / 2, event.rawY)
+                    }
+                    view.performClick()
                 }
-                view.performClick()
+            } else if (event.action == MotionEvent.ACTION_DOWN) {
+                dragged = false
+            } else if (event.action == MotionEvent.ACTION_MOVE) {
+                dragged = true
             }
             true
         }
