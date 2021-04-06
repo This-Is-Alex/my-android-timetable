@@ -68,4 +68,6 @@
     <string name="classtype_test">Test</string>
     <string name="classtype_other">Other</string>
     <string name="classtype_workshop">Workshop</string>
+
+    <string name="today">Today</string>
 </resources>

@@ -20,6 +20,13 @@ class CalendarItem (val startHour: Int,
                 "($durationMinutes mins)"
     }
 
+    fun getFormattedTimeWithoutDuration(): String {
+        val endHour = startHour + ((startMinute + durationMinutes) / 60)
+        val endMinute = (startMinute + durationMinutes) % 60
+        return "${numTo2DigitString(startHour)}:${numTo2DigitString(startMinute)} - " +
+                "${numTo2DigitString(endHour)}:${numTo2DigitString(endMinute)}"
+    }
+
     fun getLocalisedClassType(context: Context): String {
         val resourceId = when(classType) {
             ClassType.LECTURE -> R.string.classtype_lecture

@@ -43,4 +43,6 @@
     <string name="classtype_test">テスト</string>
     <string name="classtype_other">わからない</string>
     <string name="classtype_workshop">ワークショップ</string>
+
+    <string name="today">今日</string>
 </resources>
