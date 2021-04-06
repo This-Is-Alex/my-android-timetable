@@ -33,8 +33,9 @@ class MainActivity : AppCompatActivity(), CalendarClickListener, AlexsExitListen
         val fragManager = supportFragmentManager
         if(fragManager.findFragmentByTag("calendar") == null) {
             val preferences = getPreferences(Context.MODE_PRIVATE)
-            if (preferences.contains("url")) {
-                showSplashScreen(getString(R.string.progress_downloading_calendar))
+            val url = preferences.getString("url", "error")
+            if (url != null && url != "error") {
+                loginWithUrl(url)
             } else {
                 showLoginPage()
             }
@@ -51,11 +52,25 @@ class MainActivity : AppCompatActivity(), CalendarClickListener, AlexsExitListen
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.settings -> {
-                showSettings()
+            R.id.refresh -> {
+                val preferences = getPreferences(Context.MODE_PRIVATE)
+                val url = preferences.getString("url", "error")
+                if (url != null && url != "error") {
+                    loginWithUrl(url)
+                }
                 true
             }
-
+            R.id.logout -> {
+                val editor = getPreferences(Context.MODE_PRIVATE).edit()
+                editor.remove("url")
+                editor.apply()
+                val downloader = CalendarDownloader(this)
+                downloader.deleteOfflineCalendar()
+                isSignedIn = false
+                invalidateOptionsMenu()
+                showLoginPage()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -66,16 +81,6 @@ class MainActivity : AppCompatActivity(), CalendarClickListener, AlexsExitListen
         supportFragmentManager.commit {
             replace(R.id.fragment_container, fragment)
             setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
-        }
-    }
-
-    private fun showSettings() {
-        supportActionBar?.show()
-        var fragment = SettingsFragment()
-        supportFragmentManager.commit {
-            replace(R.id.fragment_container, fragment)
-            setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
-            addToBackStack("settings")
         }
     }
 
@@ -142,13 +147,27 @@ class MainActivity : AppCompatActivity(), CalendarClickListener, AlexsExitListen
 
         val downloader = CalendarDownloader(this)
         lifecycleScope.launch {
+            var success = false
             if (downloader.download(url)) {
+                success = true
+            } else if (downloader.offlineCalendarExists()) {
+                Toast.makeText(downloader.context, "Viewing offline calendar", Toast.LENGTH_SHORT)
+                    .show()
+                success = downloader.loadFromFile()
+            }
+            if (success) {
+                invalidateOptionsMenu()
+                isSignedIn = true
+                val editor = getPreferences(Context.MODE_PRIVATE).edit()
+                editor.putString("url", url)
+                editor.apply()
                 val calendar: ArrayList<CalendarDay> = downloader.getCalendar()
                 var classCount = 0
                 for (day in calendar) {
                     classCount += day.classes.size
                 }
-                Toast.makeText(downloader.context, "Loaded $classCount classes", Toast.LENGTH_SHORT).show()
+                Toast.makeText(downloader.context, "Loaded $classCount classes", Toast.LENGTH_SHORT)
+                    .show()
                 showMainPage(calendar)
             } else {
                 Toast.makeText(downloader.context, "Failed", Toast.LENGTH_SHORT).show()

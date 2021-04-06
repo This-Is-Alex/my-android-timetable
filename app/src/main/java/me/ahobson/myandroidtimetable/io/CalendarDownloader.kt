@@ -21,6 +21,7 @@ class CalendarDownloader(val context: Context) {
 
     private val internalCalendar: ArrayList<CalendarDay> = ArrayList()
     private val dateParser = SimpleDateFormat("yyyyMMdd'T'HHmmss", Locale.ENGLISH)
+    private val calendarFileName = "calendar.ics"
 
     suspend fun download(url: String): Boolean {
         var result = false
@@ -52,7 +53,7 @@ class CalendarDownloader(val context: Context) {
             Log.println(Log.INFO, "CalendarDownloader", "Parsed calendar")
 
             return if (internalCalendar.size > 0) {
-                context.openFileOutput("calendar.ics", Context.MODE_PRIVATE).use {
+                context.openFileOutput(calendarFileName, Context.MODE_PRIVATE).use {
                     it.write(calendarContents)
                 }
                 true
@@ -69,15 +70,25 @@ class CalendarDownloader(val context: Context) {
         return internalCalendar
     }
 
-    fun loadFromFile() {
-        try {
-            val calendarContents = context.openFileInput("calendar.ics").readBytes()
+    fun loadFromFile(): Boolean {
+        return try {
+            val calendarContents = context.openFileInput(calendarFileName).readBytes()
 
             internalCalendar.clear()
             parseCalendarFile(calendarContents)
+            true
         } catch (exception: FileNotFoundException) {
             Log.e("CalendarDownloader", "Internal file not found but a call to loadFromFile was still made")
+            false
         }
+    }
+
+    fun offlineCalendarExists(): Boolean {
+        return context.fileList().contains(calendarFileName)
+    }
+
+    fun deleteOfflineCalendar() {
+        context.deleteFile(calendarFileName)
     }
 
     private fun parseCalendarFile(contents: ByteArray) {
